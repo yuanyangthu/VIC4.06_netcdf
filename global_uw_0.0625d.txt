@@ -1,0 +1,114 @@
+#######################################################################
+# This text file contains information used by the vicNl model to define
+# needed global variables, and model parameters, as well as allowing the
+# user to control the features of the model to be used in the current 
+# model run.
+#
+# Model parameter or options name must be followed by TRUE or FALSE (TRUE
+# meaning the option is to be used), or the appropriate information.
+#
+# Lines proceeded by a '#' are comments, and are not processed by the model
+#
+# Modified:	May, 2000 by Ed Maurer for VIC ver.4.0.1
+# Comments:    	Global Parameter file for the Missouri Basin
+#	 	Set up for water balance for calibration
+#		runs with daily timestep
+#######################################################################
+
+#######################################################################
+# Define Global Parameters
+#######################################################################
+NLAYER		3	    # number of layers
+TIME_STEP	24	    # model time step in hours (= 24 for water balance)
+STARTYEAR	1980	# year model simulation starts
+STARTMONTH	1 # month model simulation starts
+STARTDAY	1	    # day model simulation starts
+STARTHOUR	0	    # hour model simulation starts
+ENDYEAR         2012       # year model simulation ends   }
+ENDMONTH        1      # month model simulation ends  }Do Not Use if NRECS given
+ENDDAY          1        # day model simulation ends    }
+SKIPYEAR	0	     # number of startup years to skip before writing output
+STATENAME       statepath YEAR
+STATEYEAR       2012    # year model simulation state is saved
+STATEMONTH      1   # month model simulation state is saved
+STATEDAY        1     # day model simulation state is saved
+WIND_H		10.0	    # height of wind speed measurement
+MEASURE_H	2.0	        # height of humidity measurement
+NODES		5	        # number of soil thermal nodes 
+MAX_SNOW_TEMP	0.5	    # maximum temperature at which snow can fall
+MIN_RAIN_TEMP	-0.5	# minimum temperature at which rain can fall
+
+#######################################################################
+# Define Global Parameters
+#######################################################################
+FULL_ENERGY	FALSE	    # calculate full energy balance
+FROZEN_SOIL	FALSE	    # calculate frozen soils
+DIST_PRCP	FALSE	    # use distributed precipitation
+COMPRESS	FALSE	    # compress input and output files when done
+CORRPREC	FALSE	    # correct precipitation for gauge undercatch
+GRID_DECIMAL	4	    # number of decimals to use in gridded file names
+SNOW_BAND       1       # number of snow bands and snow band filename
+PRT_SNOW_BAND   FALSE   # print snow variables
+ARC_SOIL        FALSE   # read soil parameters from ARC/INFO ASCII grids
+SNOW_STEP	3           # time step in hours to solve snow bands
+ROOT_ZONES	3	        # number of root zones in veg parameter file
+BINARY_OUTPUT   FALSE   # default is ASCII, unless LDAS format
+BINARY_STATE_FILE FALSE # default is BINARY
+MIN_WIND_SPEED  0.1     # minimum allowable wind speed
+PREC_EXPT	0.6	        # fraction of grid cell receiving precip
+GRND_FLUX       FALSE   # true for full energy, false for water balance
+QUICK_FLUX      FALSE   # true uses Liang (1999), false uses finite diff.
+NOFLUX          FALSE   # false uses const. T at damping depth
+#######################################################################
+# INPUT and OUTPUT TYPE from NETCDF 
+#######################################################################
+INPUT_GRID_DEF     922 444 -124.59375 25.15625 0.0625 0.0625   #format:  nx ny xo y0 dx dy
+OUTPUT_GRID_DEF    922 444 -124.59375 25.15625 0.0625 0.0625   #example: 464 224 -125.000 25.000 0.125 0.125
+GRID_INPUT          TRUE  #true for reading the input in GrADS binary, default is false
+GRID_OUTPUT         TRUE  #true for writing the output in GrADS binary,default is false
+REGULAR_OUTPUT      FALSE  #true for writing the output in standard version, default is false
+#OUTPUT_PER_STEP    TRUE        #true for writing output very DT in image mode
+
+#######################################################################
+# Define (Meteorological) Forcing Files
+#######################################################################
+FORCING1	forcingpath
+N_TYPES         4
+FORCE_TYPE      PREC    UNSIGNED        1    Prec precipitation filename
+FORCE_TYPE      TMAX    SIGNED          1    Tmax Tmax filename
+FORCE_TYPE      TMIN    SIGNED          1    Tmin Tmin filename
+FORCE_TYPE      WIND    SIGNED          1    Wind Wind filename
+FORCE_FORMAT    NCFLOAT
+FORCE_ENDIAN	LITTLE      # LITTLE for PC arch., BIG for Sun or HP-UX
+FORCE_DT	24              # time step of two input met files
+FORCEYEAR	2011	        # year meteorological forcing files start
+FORCEMONTH 	1       	    # month meteorological forcing files start
+FORCEDAY   	1	            # day meteorological forcing files start
+FORCEHOUR  	0	            # hour meteorological forcing files start
+
+#######################################################################
+# Define Input and Output Data Files
+#######################################################################
+SOIL		soil parameter file
+VEGPARAM	veg parameter file
+VEGLIB          veglib file
+GLOBAL_LAI      TRUE      # true if veg param file has monthly LAI
+RESULT_DIR      result path
+INIT_STATE      state path
+STATE_GZIP      TRUE
+TRUE_LATLON     FALSE
+YREV            FALSE
+
+#######################################################################
+# Define Debugging Parameters - not used -- EDM
+#######################################################################
+#PRT_FLUX	FALSE	# print energy fluxes debugging files
+#PRT_BALANCE	FALSE	# print water balance debugging files
+#PRT_SOIL	FALSE	# print soil parameter debugging files
+#PRT_VEGE	FALSE	# print vegetation parameter debugging files
+#PRT_GLOBAL	FALSE	# print global parameter debugging files
+#PRT_ATMOS	FALSE	# print forcing data debugging files
+#PRT_SNOW	FALSE	# print snow debugging files
+#PRT_MOIST	FALSE	# print soil moisture debugging files
+#PRT_TEMP	FALSE	# print soil thermal debugging files
+#DEBUG_DIR	.	# debugging files output directory (default '.')
